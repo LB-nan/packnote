@@ -1,0 +1,27 @@
+{
+  "name": "packnote",
+  "version": "1.0.0",
+  "description": "1、文件里面写上代码",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oldpubcat/packnote.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oldpubcat/packnote/issues"
+  },
+  "homepage": "https://github.com/oldpubcat/packnote#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.10.0"
+  }
+}
