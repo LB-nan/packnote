@@ -14,5 +14,23 @@ module.exports = {
             filename: 'cat1.html',
             template: 'src/index.html'
         })
-    ]
+    ],
+    module: {
+        rules: [
+            // {
+            //     test:/\.js$/,
+            //     use: [{
+            //         loader: 'babel-loader'
+            //     }]
+            // }
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            }
+        ]
+    },
+    devServer: {
+        open: true,
+        port: 8085
+    }
 }

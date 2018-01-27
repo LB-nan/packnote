@@ -1,3 +1,3 @@
 export default function a(){
-    console.log('a');
+    console.log('这里不是a');
 }
