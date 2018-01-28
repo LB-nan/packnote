@@ -130,3 +130,43 @@
 5、cssloader处理完成之后需要styleloader接手插入到结构里面
 
 	npm i -D style-loader
+
+### 6、CSS引入图片——file-loader
+1、安装file-loader
+
+	npm i -D file-loader
+
+2、安装好之后配置文件，在`webpack.config.js`文件里面`module`下的`rules`里面添加一个对象
+
+	{
+        test: /\.jpg$/,
+        use: [ 'file-loader' ]
+    }
+
+### 7、url loader
+1、安装插件
+
+	npm i -D url-loader
+
+2、url-loader会把图片编码成base64格式，因为图片太大的话转码有点得不偿失，所以用url loader的时候需要进行一些配置
+
+	{
+        test: /\.(jpg|png|gif)$/,
+        use: [{
+			loader: 'url-loader',
+			options: {
+				// 大于10000b 大约10KB的文件进行请求，小于10000b的文件进行转码
+				limit: 10000
+			}
+		}]
+    }
+
+### 8、引入字体
+1、使用file loader处理，配置位置是老位置。
+
+	{
+        test: /\.(ttf|svg|eot)$/,
+        use: [ 'file-loader' ]
+    }
+
+
