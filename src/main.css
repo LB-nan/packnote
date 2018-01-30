@@ -1,2 +1,2 @@
 body{background: red;}
-#img{background: url(./img/2.jpg) no-repeat;width: 500px;height: 400px;}
+#img{background: url(./img/2.jpg) no-repeat;width: 500px;height: 400px;position: absolute;left: 300px;}

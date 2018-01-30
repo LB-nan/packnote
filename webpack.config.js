@@ -25,7 +25,33 @@ module.exports = {
             // }
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: ['style-loader', {
+                    loader: 'css-loader',
+                    options:{
+                        module: true,
+                        localIdentName: '[name]_[local]_[hash:base64]'
+                    }
+                }],
+                exclude: [
+                    path.resolve(__dirname, 'src/main.css')
+                ]
+            },
+            {
+                test: /\.scss$/,
+                use: ['style-loader',{
+                    loader:'css-loader',
+                    options: [
+                        module: true,
+                        localIdentName: '[name]_[local]_[hash:base64]'
+                    ]
+                },'sass-loader']
+            },
+            {
+                test: /\.css$/, 
+                use: ['style-loader', 'css-loader'],
+                include: [
+                    path.resolve(__dirname, 'src/main.css')
+                ]
             },
             {
                 test: /\.(jpg|png|gif)$/,

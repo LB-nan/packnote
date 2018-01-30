@@ -169,4 +169,133 @@
         use: [ 'file-loader' ]
     }
 
+### 9、CSS模块化
+1、需要配置css-loader
+
+	use: ['style-loader', {
+        loader: 'css-loader',
+        options:{
+            module: true,
+			// 
+			localIdentName:
+        }
+    }]
+
+localIdentName：'[hash:base64]';控制编码后的名称，默认 [hash:base64]，可以设置字符串作为固定值(`[hash:base64]`这样的写法也是在引号里面,可以设置长度`[hash:base64:6]`)，不过一般不这样搞，他有几个参数分别代表不同的意思,`[path]`路径、`[name]`文件名字、`[local]`类名
+
+options里面的module默认是false，不开启模块化，设置为true就开启了。
+
+设置为模块化之后，引入的css文件都变成了模块，需要用模块的语法引入。
+
+	import cat from './cat.css'
+
+然后`cat`就变成了一个对象，HTML结构需要用cat的话需要重新设置，因为webpack会把类名什么的重新编译，所以看情况用吧。
+
+一些时候我们并不想让所有文件都模块化，这个时候就得重新设置我们的webpack设置了,设置忽略的路径，不过忽略了之后导入就会失效，所以后面还需要重新再写一条规则
+
+	 {
+	    test: /\.css$/,
+	    use: ['style-loader', {
+	        loader: 'css-loader',
+	        options:{
+	            module: true
+	        }
+	    }],
+		exclude: [
+            path.resolve(__dirname, 'src/main.css')
+        ]
+	},
+	{
+        test: /\.css$/, 
+        use: ['style-loader', 'css-loader'],
+		include: [
+            path.resolve(__dirname, 'src/main.css')
+        ]
+    }
+
+### 10、scss less
+1、sass 想用需要先安装loader
+
+	npm i -D sass-loader node-sass
+
+配置文件，webpack配置是从后往前执行的，配置的顺序不可以错。
+
+	 {
+        test: /\.scss$/,
+        use: ['style-loader','css-loader','sass-loader']
+    }
+如果想配置模块化需要设置`css-loader`，然后模块化之后引入方式也得变。
+
+	{
+        test: /\.scss$/,
+        use: ['style-loader',{
+            loader:'css-loader',
+            options: [
+                module: true,
+                localIdentName: '[name]_[local]_[hash:base64]'
+            ]
+        },'sass-loader']
+    }
+
+2、 less 
+
+	npm i -D less-loader less
+
+## babel
+1、官网 https://babeljs.cn/
+
+安装
+
+	npm install --save-dev babel-cli
+
+初始化一下，package.json
+
+	npm init
+
+使用
+
+在package.json里面找到`scripts`，添加新的字段,名字随意填，执行命令的路径是看具体情况，关键字`-o`后面加路径表示要编译的位置
+
+	"name": "babel src/app.js -o out/a.js"
+
+2、babel的插件之一：arrow functions  
+
+下载
+
+	npm install --save-dev babel-plugin-transform-es2015-arrow-functions
+
+然后把上面设置的那个修改一下
+
+	//原来的
+	"name": "babel src/app.js"
+	//修改后
+	 "babel": "babel --plugins transform-es2015-arrow-functions src/app.js"
+	
+3、babel的插件之二：classes，处理class语法的
+
+下载
+
+	npm install --save-dev babel-plugin-transform-es2015-classes
+
+4、如果插件太多一直这样不现实，有一个解决办法`babelrc`，官网有文档，新建一个`.babelrc`的文件，配置，然后还有一个东西叫做预设，把相关联的插件打包然后一起下载，比如ES6语法编译成ES5语法的所有插件打了个包。
+
+4.1 babelrc的配置
+
+	{
+	    "plugins": [
+	        "transform-es2015-arrow-functions",
+	        "transform-es2015-classes"
+	    ]
+	}
+4.2 预设
+
+	npm install --save-dev babel-cli babel-preset-es2015
+
+然后配置`babelrc`
+	
+	{ "presets": ["es2015"] }
+
+	
+
+
 
